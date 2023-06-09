@@ -14,9 +14,9 @@ public class Collectible : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         if (other.name == "Player")
         {
-            //Delete Collectable
+            //Delete Collectible
             Destroy(gameObject);
-            //Update stored number of Collectables
+            //Update stored number of Collectibles
             gController.transform.GetComponent<GameController>().numberCollectibles -= 1;
         }
     }
