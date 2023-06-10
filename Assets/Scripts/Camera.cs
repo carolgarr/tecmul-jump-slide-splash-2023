@@ -9,7 +9,7 @@ public class Camera : MonoBehaviour
 
     void Start() {
         //Distance from player to camera
-        offset = new Vector3(0.0f, 5.0f, -5f);
+        offset = new Vector3(0f, 7f, -7f);
     }
 
     //Update is called once per frame.
@@ -17,5 +17,8 @@ public class Camera : MonoBehaviour
     {
         //Follow player's position
         transform.position = player.position + offset;
+
+        //a camara olha para um ponto imaginario diretamente acima do jogador
+        transform.LookAt(player.position + Vector3.up*2);
     }
 }
