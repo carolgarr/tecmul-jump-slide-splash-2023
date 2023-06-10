@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     public new Transform camera;
     Vector3 forward;
     Vector3 right;
+    [HideInInspector]
     public Vector3 spawn;
 
     //Walk
@@ -59,7 +60,7 @@ public class Player : MonoBehaviour
         canJump = true;
     }
 
-    private void Respawn(){
+    public void Respawn(){
         transform.position = spawn;
         _rigidBody.velocity = new Vector3(0,0,0);
     }
