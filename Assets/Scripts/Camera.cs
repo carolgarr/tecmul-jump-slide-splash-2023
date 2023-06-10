@@ -22,11 +22,11 @@ public class Camera : MonoBehaviour
     {
         if (canMove)
         {
-            //Follow player's position
+            //segue o jogador
             transform.position = player.position + offset;
         }
 
         //a camara olha para um ponto imaginario diretamente acima do jogador
-        transform.LookAt(player.position + Vector3.up * 2);
+        transform.LookAt(player.position + Vector3.up * 3);
     }
 }

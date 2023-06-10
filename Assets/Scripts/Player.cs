@@ -11,14 +11,18 @@ public class Player : MonoBehaviour
     [HideInInspector]
     public Vector3 spawn;
 
-    //Walk
-    public float speed;
     private Rigidbody _rigidBody;
-    //Jump
+    public float speed;
+    [Range(0.0f, 1.0f)]
+    public float brake;
     public float height;
     public float gravity;
-    private bool canJump;
-    private bool canPlay;
+    
+    [HideInInspector]
+    public bool canJump;
+    
+    [HideInInspector]
+    public bool canPlay;
     
     // Start is called before the first frame update
     void Start()
@@ -49,6 +53,14 @@ public class Player : MonoBehaviour
             else {
                 _rigidBody.AddForce(Vector3.down * gravity);
             }
+            //se carregou no alt, reduz a sua velocidade por metade
+            if(Input.GetButton("Fire2")){
+                _rigidBody.velocity = new Vector3(
+                    _rigidBody.velocity.x * brake,
+                    _rigidBody.velocity.y,
+                    _rigidBody.velocity.z * brake
+                );
+            }
         }
 
         
@@ -61,7 +73,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    //Jump
     private void OnCollisionEnter(Collision other) {
         canJump = true;
     }
@@ -70,13 +81,14 @@ public class Player : MonoBehaviour
         Camera cam = camera.gameObject.GetComponent<Camera>();
         cam.canMove = false;
         canPlay = false;
-        StartCoroutine(Respawn(2, cam));
+        StartCoroutine(Respawn(1.5f, cam));
     }
     IEnumerator Respawn(float delay, Camera camera)
     {
         yield return new WaitForSeconds(delay);
         transform.position = spawn;
-        _rigidBody.velocity = new Vector3(0,0,0);
+        _rigidBody.velocity = new Vector3();
+        _rigidBody.angularVelocity = new Vector3();
         camera.canMove = true;
         canPlay = true;
     }
