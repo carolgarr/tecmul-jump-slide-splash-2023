@@ -9,12 +9,12 @@ public class Skybox : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        camera = GameObject.Find("Camera").transform;
+        camera = GameObject.Find("Camera").GetComponent<Camera>().transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = camera.position;
+        transform.position = new Vector3(camera.position.x, 0, camera.position.z);
     }
 }

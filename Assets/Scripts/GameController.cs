@@ -22,7 +22,6 @@ public class GameController : MonoBehaviour
         isPaused = false;
         player = GameObject.Find("Player").GetComponent<Player>();
         PauseMenu.SetActive(false);
-        Cursor.visible = false;
         TimerController.GetComponent<TimerController>().StartTimer();
     }
 
@@ -55,7 +54,6 @@ public class GameController : MonoBehaviour
         Time.timeScale = 0;
         player.canPlay = false;
         player.camera.canLook = false;
-        Cursor.visible = true;
     }
 
     public void ResumeGame()
@@ -66,14 +64,12 @@ public class GameController : MonoBehaviour
         Time.timeScale = 1;
         player.canPlay = true;
         player.camera.canLook = true;
-        Cursor.visible = false;
     }
 
     public void WinGame()
     {
         TimerController.GetComponent<TimerController>().PauseTimer();
         player.WinCutscene();
-        Cursor.visible = true;
         WinMenu.SetActive(true);
     }
 
@@ -81,7 +77,6 @@ public class GameController : MonoBehaviour
     {
         
         TimerController.GetComponent<TimerController>().StartTimer();
-        Cursor.visible = false;
         SceneManager.LoadScene("SampleScene");
     }
 
@@ -93,7 +88,6 @@ public class GameController : MonoBehaviour
 
     public void GoToMainMenu()
     {
-        Cursor.visible = true;
         SceneManager.LoadScene("menuScene");
     }
 }

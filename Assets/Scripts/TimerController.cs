@@ -15,7 +15,7 @@ public class TimerController : MonoBehaviour
 
     void Start()
     {
-        timerText.text = "Time: 00:00.69";
+        timerText.text = "Time: 00:00.00";
         countTime = true;
         
 
