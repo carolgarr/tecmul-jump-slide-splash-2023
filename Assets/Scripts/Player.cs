@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public new Camera camera;
-    
+    public Camera camera1;
     Vector3 forward;
     Vector3 right;
     
@@ -51,20 +50,11 @@ public class Player : MonoBehaviour
         if(canPlay && !wonGame){
             float horizontalValue = Input.GetAxisRaw("Horizontal");
             float verticalValue = Input.GetAxisRaw("Vertical");
+    
+            forward = new Vector3(camera1.transform.forward.x, 0.0f, camera1.transform.forward.z).normalized;
+            right = new Vector3(camera1.transform.right.x, 0.0f, camera1.transform.right.z).normalized;
 
-            Vector3 forward = new Vector3(camera.transform.forward.x, 0.0f, camera.transform.forward.z).normalized;
-            Vector3 right = new Vector3(camera.transform.right.x, 0.0f, camera.transform.right.z).normalized;
-
-            if (horizontalValue > 0)
-            {
-              
-            }
-
-            if (horizontalValue < 0)
-            {
-                
-            }
-
+            
             if (_rigidBody.velocity.magnitude >= limitV)
             {
                 _rigidBody.velocity = _rigidBody.velocity.normalized * limitV;
@@ -115,25 +105,31 @@ public class Player : MonoBehaviour
     }
 
     public void Kill(){
-        Camera cam = camera.gameObject.GetComponent<Camera>();
+        Camera cam = camera1.gameObject.GetComponent<Camera>();
         cam.canMove = false;
         canPlay = false;
         StartCoroutine(Respawn(1.5f, cam));
     }
-    IEnumerator Respawn(float delay, Camera camera)
+    IEnumerator Respawn(float delay, Camera camera2)
     {
         yield return new WaitForSeconds(delay);
         transform.position = spawn;
         _rigidBody.velocity = new Vector3();
         _rigidBody.angularVelocity = new Vector3();
-        camera.canMove = true;
+        Camera cam = camera2.gameObject.GetComponent<Camera>();
+        cam.canMove = true;
         canPlay = true;
     }
 
     public void WinCutscene(){
-        Camera cam = camera.gameObject.GetComponent<Camera>();
-        cam.canMove = false;
+        Camera cam = camera1.gameObject.GetComponent<Camera>();
+        cam.canMove = true;
         canPlay = false;
         wonGame = true;
+    }
+
+    public Vector3 getVelocity()
+    {
+        return _rigidBody.velocity;
     }
 }

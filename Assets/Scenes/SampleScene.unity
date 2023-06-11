@@ -2731,12 +2731,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9b7b57517172b47b483a4b392e16b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 1484220081}
+  camera1: {fileID: 1484220081}
   spawn: {x: 0, y: 0, z: 0}
-  limitV: 0
+  limitV: 30
   speed: 10
   brake: 0.9
-  height: 6
+  height: 8
   gravity: 10
   canJump: 0
   canPlay: 0
@@ -4314,9 +4314,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 295d606cb3bc66846b065102f4c1a59b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 733324466}
-  offset: {x: 0, y: 0, z: 0}
+  offset1: {x: 0, y: 0, z: 0}
+  offset2: {x: 0, y: 0, z: 0}
+  offset3: {x: 0, y: 0, z: 0}
+  offset4: {x: 0, y: 0, z: 0}
   canMove: 0
+  rotationSpeed: 3
 --- !u!1 &1485418605
 GameObject:
   m_ObjectHideFlags: 0
