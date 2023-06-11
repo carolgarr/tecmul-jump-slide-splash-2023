@@ -2596,6 +2596,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camera: {fileID: 1484220081}
   spawn: {x: 0, y: 0, z: 0}
+  limitV: 0
   speed: 10
   brake: 0.9
   height: 6
@@ -3538,18 +3539,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6500642059986879841, guid: d1d8ff755bfa8d947b3f579d9a756cb7, type: 3}
   m_PrefabInstance: {fileID: 1065641171}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1136650239
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1136650238}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f10675ab8c66d14491fc93f2fb5b4e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!135 &1136650241
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4017,6 +4006,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 733324466}
+  offset: {x: 0, y: 0, z: 0}
   canMove: 0
 --- !u!1001 &1493646046
 PrefabInstance:

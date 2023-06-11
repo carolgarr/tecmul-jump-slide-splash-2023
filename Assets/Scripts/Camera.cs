@@ -5,7 +5,9 @@ using UnityEngine;
 public class Camera : MonoBehaviour
 {
     public Transform player;
-    private Vector3 offset;
+    
+    [HideInInspector]
+    public  Vector3 offset;
 
     public bool canMove;
 

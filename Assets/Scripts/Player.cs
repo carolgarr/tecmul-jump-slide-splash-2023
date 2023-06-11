@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public new Camera camera;
+    public Camera camera;
+    
     Vector3 forward;
     Vector3 right;
-
+    
     [HideInInspector]
     public Vector3 spawn;
 
     private Rigidbody _rigidBody;
+    
+    public float limitV;
     public float speed;
+    
     [Range(0.0f, 1.0f)]
     public float brake;
     public float height;
@@ -23,6 +27,7 @@ public class Player : MonoBehaviour
     
     [HideInInspector]
     public bool canPlay;
+   
     
     // Start is called before the first frame update
     void Start()
@@ -31,6 +36,9 @@ public class Player : MonoBehaviour
         spawn = transform.position;
         canJump = true;
         canPlay = true;
+        limitV = 30;
+        height = 8; 
+        
     }
 
     // Update is called once per frame
@@ -42,9 +50,26 @@ public class Player : MonoBehaviour
 
             Vector3 forward = new Vector3(camera.transform.forward.x, 0.0f, camera.transform.forward.z).normalized;
             Vector3 right = new Vector3(camera.transform.right.x, 0.0f, camera.transform.right.z).normalized;
-            
-            _rigidBody.AddForce(forward * speed * verticalValue);
-            _rigidBody.AddForce(right * speed * horizontalValue);
+
+            if (horizontalValue > 0)
+            {
+              
+            }
+
+            if (horizontalValue < 0)
+            {
+                
+            }
+
+            if (_rigidBody.velocity.magnitude >= limitV)
+            {
+                _rigidBody.velocity = _rigidBody.velocity.normalized * limitV;
+            }
+            else
+            {
+                _rigidBody.AddForce(forward * speed * verticalValue);
+                _rigidBody.AddForce(right * speed * horizontalValue);
+            }
 
             if(Input.GetButton("Jump") && canJump){
                 _rigidBody.AddForce(Vector3.up * height, ForceMode.Impulse);
@@ -62,8 +87,6 @@ public class Player : MonoBehaviour
                 );
             }
         }
-
-        
     }
 
     void Update(){
