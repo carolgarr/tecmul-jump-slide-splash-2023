@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class GameController : MonoBehaviour
 
     public GameObject PauseMenu;
     private bool isPaused;
+    public GameObject WinMenu;
 
     private Player player;
 
@@ -23,9 +25,8 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PauseMenu != null)
+        if (player.canPlay == true)
         {
-            //menu de pausa
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 //se quer parar o jogo
@@ -39,12 +40,6 @@ public class GameController : MonoBehaviour
                     ResumeGame();
                 }
             }
-        }
-
-        //Display Game Over message
-        if (numberCollectibles == 0)
-        {
-            endMessage.SetActive(true);
         }
     }
 
@@ -62,5 +57,26 @@ public class GameController : MonoBehaviour
         isPaused = false;
         Time.timeScale = 1;
         player.canPlay = true;
+    }
+
+    public void WinGame()
+    {
+        player.WinCutscene();
+        WinMenu.SetActive(true);
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("SampleScene");
+    }
+
+    public void LeaveGame()
+    {
+        GoToMainMenu();
+    }
+
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene("menuScene");
     }
 }

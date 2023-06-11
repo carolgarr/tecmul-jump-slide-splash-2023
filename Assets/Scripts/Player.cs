@@ -23,6 +23,8 @@ public class Player : MonoBehaviour
     
     [HideInInspector]
     public bool canPlay;
+
+    private bool wonGame;
     
     // Start is called before the first frame update
     void Start()
@@ -31,12 +33,13 @@ public class Player : MonoBehaviour
         spawn = transform.position;
         canJump = true;
         canPlay = true;
+        wonGame = false;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(canPlay){
+        if(canPlay && !wonGame){
             float horizontalValue = Input.GetAxisRaw("Horizontal");
             float verticalValue = Input.GetAxisRaw("Vertical");
 
@@ -62,7 +65,13 @@ public class Player : MonoBehaviour
                 );
             }
         }
-
+        else if(wonGame){
+            _rigidBody.velocity = new Vector3(
+                    _rigidBody.velocity.x * 0.99f,
+                    _rigidBody.velocity.y + 0.2f,
+                    _rigidBody.velocity.z * 0.99f
+                );
+        }
         
     }
 
@@ -91,5 +100,12 @@ public class Player : MonoBehaviour
         _rigidBody.angularVelocity = new Vector3();
         camera.canMove = true;
         canPlay = true;
+    }
+
+    public void WinCutscene(){
+        Camera cam = camera.gameObject.GetComponent<Camera>();
+        cam.canMove = false;
+        canPlay = false;
+        wonGame = true;
     }
 }
