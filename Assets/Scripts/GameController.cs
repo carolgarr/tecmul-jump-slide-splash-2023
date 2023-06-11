@@ -54,7 +54,7 @@ public class GameController : MonoBehaviour
         isPaused = true;
         Time.timeScale = 0;
         player.canPlay = false;
-        player.camera.GetComponent<Camera>().canLook = false;
+        player.camera.canLook = false;
         Cursor.visible = true;
     }
 
@@ -65,7 +65,7 @@ public class GameController : MonoBehaviour
         isPaused = false;
         Time.timeScale = 1;
         player.canPlay = true;
-        player.camera.GetComponent<Camera>().canLook = true;
+        player.camera.canLook = true;
         Cursor.visible = false;
     }
 

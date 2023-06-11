@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public Camera camera1;
+    public new Camera camera;
     Vector3 forward;
     Vector3 right;
     
@@ -51,8 +51,8 @@ public class Player : MonoBehaviour
             float horizontalValue = Input.GetAxisRaw("Horizontal");
             float verticalValue = Input.GetAxisRaw("Vertical");
     
-            forward = new Vector3(camera1.transform.forward.x, 0.0f, camera1.transform.forward.z).normalized;
-            right = new Vector3(camera1.transform.right.x, 0.0f, camera1.transform.right.z).normalized;
+            forward = new Vector3(camera.transform.forward.x, 0.0f, camera.transform.forward.z).normalized;
+            right = new Vector3(camera.transform.right.x, 0.0f, camera.transform.right.z).normalized;
 
             
             if (_rigidBody.velocity.magnitude >= limitV)
@@ -105,24 +105,24 @@ public class Player : MonoBehaviour
     }
 
     public void Kill(){
-        Camera cam = camera1.gameObject.GetComponent<Camera>();
+        Camera cam = camera.gameObject.GetComponent<Camera>();
         cam.canMove = false;
         canPlay = false;
         StartCoroutine(Respawn(1.5f, cam));
     }
-    IEnumerator Respawn(float delay, Camera camera2)
+    IEnumerator Respawn(float delay, Camera camera)
     {
         yield return new WaitForSeconds(delay);
         transform.position = spawn;
         _rigidBody.velocity = new Vector3();
         _rigidBody.angularVelocity = new Vector3();
-        Camera cam = camera2.gameObject.GetComponent<Camera>();
+        Camera cam = camera.gameObject.GetComponent<Camera>();
         cam.canMove = true;
         canPlay = true;
     }
 
     public void WinCutscene(){
-        Camera cam = camera1.gameObject.GetComponent<Camera>();
+        Camera cam = camera.gameObject.GetComponent<Camera>();
         cam.canMove = true;
         canPlay = false;
         wonGame = true;
