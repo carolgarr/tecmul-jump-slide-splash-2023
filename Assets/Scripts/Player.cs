@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public Camera camera;
+    public new Camera camera;
     
     Vector3 forward;
     Vector3 right;
@@ -104,7 +104,7 @@ public class Player : MonoBehaviour
     }
 
     void Update(){
-        if(canPlay && transform.position.y < -5) {
+        if(canPlay && transform.position.y < -60) {
             canPlay = false;
             Kill();
         }
