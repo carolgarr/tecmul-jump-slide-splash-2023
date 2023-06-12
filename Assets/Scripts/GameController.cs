@@ -5,9 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    public int numberCollectibles;
-    public GameObject endMessage;
-
     public GameObject TimerController;
 
     public GameObject PauseMenu;

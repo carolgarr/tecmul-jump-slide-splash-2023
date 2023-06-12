@@ -100,7 +100,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (canPlay && transform.position.y < -60)
+        if (canPlay && transform.position.y < -50)
         {
             canPlay = false;
             Kill();
