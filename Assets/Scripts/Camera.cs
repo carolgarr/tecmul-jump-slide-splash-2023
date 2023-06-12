@@ -7,20 +7,10 @@ public class Camera : MonoBehaviour
     private Player player;
 
     [HideInInspector]
-    public Vector3 offset1;
-
-    [HideInInspector]
-    public Vector3 offset2;
-
-    [HideInInspector]
-    public Vector3 offset3;
-
-    [HideInInspector]
-    public Vector3 offset4;
-
-    [HideInInspector]
     public bool canMove;
     public bool canLook;
+
+    private Vector3 offset;
 
     public float rotationSpeed = 9.0f; // Velocidade de rotação da câmera
     private float rotationX = 0.0f; // Rotação da câmera no eixo X
@@ -32,32 +22,43 @@ public class Camera : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<Player>();
     }
 
-    //corre sempre depois de todos os Updates
-    //para olhar para o jogador depois de se mover do update
-    void LateUpdate()
-    {
+    void FixedUpdate(){
         if (canMove)
         {
             if (Input.GetMouseButton(1))
             {
-                float mouseX = Input.GetAxis("Mouse X");
-                float mouseY = Input.GetAxis("Mouse Y");
+                float mouseX = Input.GetAxis("Mouse X") * Time.deltaTime;
+                float mouseY = Input.GetAxis("Mouse Y") * Time.deltaTime;
                 rotationX -= mouseY * rotationSpeed;
                 rotationY += mouseX * rotationSpeed;
-                transform.rotation = Quaternion.Euler(rotationX, rotationY, 0.0f);
+                transform.localRotation = Quaternion.Euler(rotationX, rotationY, 0.0f);
             }
-
-            transform.position = player.transform.position + getVetorOffset();
+            else
+            {               
+                Vector3 newPosition = player.transform.position + getVetorOffset();
+                transform.position = Vector3.MoveTowards(
+                    transform.position,
+                    newPosition,
+                    Vector3.Distance(transform.position, newPosition) * Time.deltaTime + 0.2f
+                );
+            }
         }
-        transform.LookAt(player.transform.position + Vector3.up * 3);
+    }
+
+    //corre sempre depois de todos os Updates
+    //para olhar para o jogador depois de se mover do update
+    void LateUpdate()
+    {
+        transform.LookAt(player.transform.position + Vector3.up * 2);
     }
 
     public Vector3 getVetorOffset()
     {
+        Vector3 velocidade = player.getVelocity();
         Vector3 vetor;
         vetor =
-            new Vector3(-player.getVelocity().x, 0, -player.getVelocity().z).normalized * 7
-            + Vector3.up * 7;
+            new Vector3(-velocidade.x, 0, -velocidade.z).normalized * 5
+            + Vector3.up * 4;
         return vetor;
     }
 }
