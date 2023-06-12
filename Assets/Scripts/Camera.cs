@@ -32,7 +32,7 @@ public class Camera : MonoBehaviour
                 transform.position = Vector3.MoveTowards(
                     transform.position,
                     newPosition,
-                    Vector3.Distance(transform.position, newPosition) * Time.deltaTime + 0.2f
+                    Vector3.Distance(transform.position, newPosition) * Time.deltaTime
                 );
             }
         }
@@ -43,8 +43,8 @@ public class Camera : MonoBehaviour
     void LateUpdate()
     {
         if(Input.GetMouseButton(0) && canLook){
-            float mouseX = Input.GetAxis("Mouse X") * Time.deltaTime;
-            float mouseY = Input.GetAxis("Mouse Y") * Time.deltaTime;
+            float mouseX = Input.GetAxis("Mouse X");
+            float mouseY = Input.GetAxis("Mouse Y");
             rotationX -= mouseY * rotationSpeed;
             rotationY += mouseX * rotationSpeed;
             transform.localRotation = Quaternion.Euler(rotationX, rotationY, 0.0f);
