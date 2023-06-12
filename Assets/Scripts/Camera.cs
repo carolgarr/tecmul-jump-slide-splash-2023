@@ -51,7 +51,7 @@ public class Camera : MonoBehaviour
         }
         else{
             transform.LookAt(player.transform.position + Vector3.up * 2);
-        {     
+        }  
     }
 
     public Vector3 getVetorOffset()
