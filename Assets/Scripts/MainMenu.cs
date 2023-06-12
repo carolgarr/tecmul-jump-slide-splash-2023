@@ -5,10 +5,6 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     public void StartGame() { 
-        SceneManager.LoadScene("SampleScene");
-    }
-
-    public void StartOptions() {
-        //SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("gameScene");
     }
 }

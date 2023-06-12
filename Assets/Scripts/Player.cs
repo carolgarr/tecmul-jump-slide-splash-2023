@@ -26,8 +26,10 @@ public class Player : MonoBehaviour
 
     [HideInInspector]
     public bool canPlay;
+    private bool isDead;
 
-    private bool wonGame;
+    [HideInInspector]
+    public bool wonGame;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +39,7 @@ public class Player : MonoBehaviour
         spawn = transform.position;
         canJump = true;
         canPlay = true;
+        isDead = false;
         wonGame = false;
     }
 
@@ -100,9 +103,9 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (canPlay && transform.position.y < -50)
+        if (!isDead && transform.position.y < -50)
         {
-            canPlay = false;
+            isDead = true;
             Kill();
         }
     }
@@ -126,8 +129,9 @@ public class Player : MonoBehaviour
         _rigidBody.velocity = new Vector3();
         _rigidBody.angularVelocity = new Vector3();
         canPlay = true;
+        isDead = false;
         camera.canMove = true;
-        camera.transform.position = transform.position + Vector3.up * 30 + Vector3.right * 10;
+        camera.transform.position = transform.position + Vector3.up * 1 + Vector3.right * 3;
     }
 
     public void WinCutscene()

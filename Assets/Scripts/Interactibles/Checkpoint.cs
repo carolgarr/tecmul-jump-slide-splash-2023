@@ -9,6 +9,10 @@ public class Checkpoint : MonoBehaviour
         
     }
 
+    private void Update() {
+        transform.Rotate(Vector3.up * Time.deltaTime * 50f, Space.Self);
+    }
+
     private void OnTriggerEnter(Collider other) {
         if (other.name == "Player")
         {

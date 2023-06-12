@@ -26,7 +26,7 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player.canPlay == true)
+        if (!player.wonGame)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
@@ -41,27 +41,47 @@ public class GameController : MonoBehaviour
                     ResumeGame();
                 }
             }
+
+            //se está a carregar no botão do rato para olhar à volta
+            if (Input.GetMouseButton(0))
+            {
+                PausePhysics();
+            }
+            else if (!isPaused)
+            {
+                ResumePhysics();
+            }
         }
     }
 
     public void PauseGame()
     {
-        TimerController.GetComponent<TimerController>().PauseTimer();
         PauseMenu.SetActive(true);
         isPaused = true;
+        player.camera.canLook = false;
+        PausePhysics();
+    }
+
+    private void PausePhysics()
+    {
+        TimerController.GetComponent<TimerController>().PauseTimer();
         Time.timeScale = 0;
         player.canPlay = false;
-        player.camera.canLook = false;
     }
 
     public void ResumeGame()
     {
-        TimerController.GetComponent<TimerController>().ResumeTimer();
         PauseMenu.SetActive(false);
         isPaused = false;
+        player.camera.canLook = true;
+        ResumePhysics();
+    }
+
+    private void ResumePhysics()
+    {
+        TimerController.GetComponent<TimerController>().ResumeTimer();
         Time.timeScale = 1;
         player.canPlay = true;
-        player.camera.canLook = true;
     }
 
     public void WinGame()
@@ -73,9 +93,8 @@ public class GameController : MonoBehaviour
 
     public void RestartGame()
     {
-        
         TimerController.GetComponent<TimerController>().StartTimer();
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("gameScene");
     }
 
     public void LeaveGame()
