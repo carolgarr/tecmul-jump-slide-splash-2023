@@ -19,22 +19,15 @@ public class Camera : MonoBehaviour
     void Start()
     {
         canMove = true;
+        canLook = true;
         player = GameObject.Find("Player").GetComponent<Player>();
     }
 
     void FixedUpdate(){
         if (canMove)
         {
-            if (Input.GetMouseButton(1))
-            {
-                float mouseX = Input.GetAxis("Mouse X") * Time.deltaTime;
-                float mouseY = Input.GetAxis("Mouse Y") * Time.deltaTime;
-                rotationX -= mouseY * rotationSpeed;
-                rotationY += mouseX * rotationSpeed;
-                transform.localRotation = Quaternion.Euler(rotationX, rotationY, 0.0f);
-            }
-            else
-            {               
+            if (!Input.GetMouseButton(0))
+            {          
                 Vector3 newPosition = player.transform.position + getVetorOffset();
                 transform.position = Vector3.MoveTowards(
                     transform.position,
@@ -49,7 +42,16 @@ public class Camera : MonoBehaviour
     //para olhar para o jogador depois de se mover do update
     void LateUpdate()
     {
-        transform.LookAt(player.transform.position + Vector3.up * 2);
+        if(Input.GetMouseButton(0) && canLook){
+            float mouseX = Input.GetAxis("Mouse X") * Time.deltaTime;
+            float mouseY = Input.GetAxis("Mouse Y") * Time.deltaTime;
+            rotationX -= mouseY * rotationSpeed;
+            rotationY += mouseX * rotationSpeed;
+            transform.localRotation = Quaternion.Euler(rotationX, rotationY, 0.0f);
+        }
+        else{
+            transform.LookAt(player.transform.position + Vector3.up * 2);
+        {     
     }
 
     public Vector3 getVetorOffset()

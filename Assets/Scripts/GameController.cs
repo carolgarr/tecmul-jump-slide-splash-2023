@@ -19,6 +19,7 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1;
         isPaused = false;
         player = GameObject.Find("Player").GetComponent<Player>();
         PauseMenu.SetActive(false);
