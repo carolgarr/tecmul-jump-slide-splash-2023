@@ -11,6 +11,10 @@ public class Finish : MonoBehaviour
         gController = GameObject.Find("GameController");
     }
 
+    private void Update() {
+        transform.Rotate(Vector3.up * Time.deltaTime * 150f, Space.Self);
+    }
+
     private void OnTriggerEnter(Collider other) {
         if (other.name == "Player")
         {
