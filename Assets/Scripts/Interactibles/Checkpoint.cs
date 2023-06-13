@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
+    public Material desativado;
+
+    private AudioSource source;
     void Start()
     {
-        
+        source = GetComponent<AudioSource>();
     }
 
     private void Update() {
@@ -16,11 +19,18 @@ public class Checkpoint : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         if (other.name == "Player")
         {
+            source.Play();
+
+            GetComponent<Collider>().enabled = false;
             Player player = other.gameObject.GetComponent<Player>();
 
-            player.spawn = transform.position + Vector3.up*1.5f;
+            player.spawn = transform.position + Vector3.up;
 
-            Destroy(gameObject);
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                Transform child = transform.GetChild(i);
+                child.GetComponent<MeshRenderer>().material = desativado;
+            }
         }
     }
 }

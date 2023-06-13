@@ -21,8 +21,12 @@ public class Player : MonoBehaviour
     public float height;
     public float gravity;
 
+    public Material comSalto;
+    public Material semSalto;
+
     [HideInInspector]
     public bool canJump;
+    private bool couldJump;
 
     [HideInInspector]
     public bool canPlay;
@@ -31,13 +35,21 @@ public class Player : MonoBehaviour
     [HideInInspector]
     public bool wonGame;
 
+    public AudioClip sfxJump;
+    public AudioClip sfxRefresh;
+    public AudioClip sfxDie;
+
+    private AudioSource source;
+
     // Start is called before the first frame update
     void Start()
     {
         _rigidBody = GetComponent<Rigidbody>();
+        source = GetComponent<AudioSource>();
         camera = GameObject.Find("Camera").GetComponent<Camera>();
         spawn = transform.position;
         canJump = true;
+        couldJump = true;
         canPlay = true;
         isDead = false;
         wonGame = false;
@@ -82,7 +94,7 @@ public class Player : MonoBehaviour
                 _rigidBody.AddForce(Vector3.down * gravity);
             }
             //se carregou no alt, reduz a sua velocidade por metade
-            if (Input.GetButton("Fire2"))
+            if (Input.GetButton("Fire1"))
             {
                 _rigidBody.velocity = new Vector3(
                     _rigidBody.velocity.x * brake,
@@ -106,7 +118,24 @@ public class Player : MonoBehaviour
         if (!isDead && transform.position.y < -50)
         {
             isDead = true;
+            source.clip = sfxDie;
+            source.Play();
             Kill();
+        }
+
+        if (!canJump && couldJump)
+        {
+            source.clip = sfxJump;
+            source.Play();
+            GetComponent<MeshRenderer>().material = semSalto;
+            couldJump = false;
+        }
+        else if (canJump && !couldJump)
+        {
+            source.clip = sfxRefresh;
+            source.Play();
+            GetComponent<MeshRenderer>().material = comSalto;
+            couldJump = true;
         }
     }
 
@@ -131,7 +160,7 @@ public class Player : MonoBehaviour
         canPlay = true;
         isDead = false;
         camera.canMove = true;
-        camera.transform.position = transform.position + Vector3.up * 1 + Vector3.right * 3;
+        camera.transform.position = transform.position + Vector3.up * 1 + Vector3.right * 30;
     }
 
     public void WinCutscene()

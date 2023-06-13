@@ -101,7 +101,7 @@ public class Camera : MonoBehaviour
     {
         Vector3 velocidade = player.getVelocity();
         Vector3 vetor;
-        vetor = new Vector3(-velocidade.x, 0, -velocidade.z).normalized * 5 + Vector3.up * 5;
+        vetor = new Vector3(-velocidade.x, 0, -velocidade.z).normalized * 5 + Vector3.up * 3;
         return vetor;
     }
 }
