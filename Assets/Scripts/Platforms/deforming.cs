@@ -56,8 +56,6 @@ public class deforming : MonoBehaviour
         if (other.collider.name == "Player")
         {
         m.vertices = iVerts;
-        m.RecalculateNormals();
-        mc.sharedMesh=m;
         }
     }
 }
