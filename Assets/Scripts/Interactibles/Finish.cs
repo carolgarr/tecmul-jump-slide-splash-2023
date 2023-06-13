@@ -6,9 +6,12 @@ public class Finish : MonoBehaviour
 {
     private GameObject gController;
 
+    private AudioSource source;
+
     private void Start() {
         //Get Game Controller
         gController = GameObject.Find("GameController");
+        source = GetComponent<AudioSource>();
     }
 
     private void Update() {
@@ -18,6 +21,7 @@ public class Finish : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         if (other.name == "Player")
         {
+            source.Play();
             gController.transform.GetComponent<GameController>().WinGame();
         }
     }

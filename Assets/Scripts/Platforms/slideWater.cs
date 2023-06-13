@@ -12,7 +12,9 @@ public class slideWater : MonoBehaviour
         {
 
             Rigidbody player = collision.gameObject.GetComponent<Rigidbody>();
+            if(player.velocity.magnitude < speed){
             player.AddForce(-transform.right *speed);
+            }
         }
     }
 }

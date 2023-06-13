@@ -15,6 +15,16 @@ public class Skybox : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(camera.position.x, 0, camera.position.z);
+        float cameraY = camera.position.y;
+
+        if(cameraY < 0){
+            cameraY = 0;
+        }
+
+        transform.position = new Vector3(
+            camera.position.x, 
+            cameraY * 0.6f, 
+            camera.position.z
+        );
     }
 }

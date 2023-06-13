@@ -9,7 +9,11 @@ public class Balloon : MonoBehaviour
     public Material ativo;
     public Material desativado;
 
-    void Start() { }
+    private AudioSource source;
+
+    void Start() { 
+        source = GetComponent<AudioSource>();
+    }
 
     void Update()
     {
@@ -20,6 +24,7 @@ public class Balloon : MonoBehaviour
     {
         if (other.name == "Player")
         {
+            source.Play();
             GetComponent<Collider>().enabled = false;
             Rigidbody player = other.gameObject.GetComponent<Rigidbody>();
             player.AddForce(Vector3.up * boost * 50);
