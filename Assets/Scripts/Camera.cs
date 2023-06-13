@@ -75,6 +75,12 @@ public class Camera : MonoBehaviour
                     newPosition,
                     distancia * tempo * velocidadeJogador
                 );
+                
+                transform.position = new Vector3(
+                    transform.position.x,
+                    newPosition.y,
+                    transform.position.z
+                );
             }
         }
     }

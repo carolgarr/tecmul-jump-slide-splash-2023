@@ -23,7 +23,7 @@ public class Skybox : MonoBehaviour
 
         transform.position = new Vector3(
             camera.position.x, 
-            cameraY * 0.6f, 
+            cameraY * 1f, 
             camera.position.z
         );
     }
