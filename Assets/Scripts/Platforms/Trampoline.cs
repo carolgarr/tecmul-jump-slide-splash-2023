@@ -10,7 +10,7 @@ public class Trampoline : MonoBehaviour
         if (other.collider.name == "Player")
         {
             Rigidbody player = other.gameObject.GetComponent<Rigidbody>();
-            player.AddForce(transform.up * height*50, ForceMode.Acceleration);
+            player.AddForce(Vector3.up * height* 50);
         }
     }
 }

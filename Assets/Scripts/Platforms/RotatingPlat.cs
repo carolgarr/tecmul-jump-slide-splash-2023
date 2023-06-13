@@ -34,8 +34,8 @@ public class RotatingPlat : MonoBehaviour
     void FixedUpdate()
     {
         //roda à volta do eixo
-        //é vezes 90 para a 'velocidade' ser o nº de rotações por cada 4 segundos
-        transform.Rotate(eixo * velocidade * Time.deltaTime * 90f, Space.Self);
+        //é vezes 45 para a 'velocidade' ser o nº de rotações por cada 8 segundos
+        transform.Rotate(eixo * velocidade * Time.deltaTime * 45f, Space.Self);
     }
 }
 
