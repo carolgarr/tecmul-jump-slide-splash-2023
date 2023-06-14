@@ -74,14 +74,23 @@ public class Player : MonoBehaviour
                 camera.transform.right.z
             ).normalized;
 
+            //a seta para baixo ou o S servem para travar
+            if (verticalValue < 0)
+            {
+                _rigidBody.velocity = new Vector3(
+                    _rigidBody.velocity.x * brake,
+                    _rigidBody.velocity.y,
+                    _rigidBody.velocity.z * brake
+                );
+                verticalValue = 0;
+            }
+
+            _rigidBody.AddForce(forward * speed * verticalValue);
+            _rigidBody.AddForce(right * speed * horizontalValue);
+
             if (_rigidBody.velocity.magnitude >= limitV)
             {
                 _rigidBody.velocity = _rigidBody.velocity.normalized * limitV;
-            }
-            else
-            {
-                _rigidBody.AddForce(forward * speed * verticalValue);
-                _rigidBody.AddForce(right * speed * horizontalValue);
             }
 
             if (Input.GetButton("Jump") && canJump)
@@ -93,15 +102,7 @@ public class Player : MonoBehaviour
             {
                 _rigidBody.AddForce(Vector3.down * gravity);
             }
-            //se carregou no alt, reduz a sua velocidade por metade
-            if (Input.GetButton("Fire1"))
-            {
-                _rigidBody.velocity = new Vector3(
-                    _rigidBody.velocity.x * brake,
-                    _rigidBody.velocity.y,
-                    _rigidBody.velocity.z * brake
-                );
-            }
+            
         }
         else if (wonGame)
         {
